@@ -1,4 +1,4 @@
-import { log } from "./utils/promise-helpers.js";
+import { log, timeoutPromisse } from "./utils/promise-helpers.js";
 import './utils/array-helpers.js';
 import { notasService as service } from './notas/service.js'
 import { takeUntil, debounceTime, partialize, pipe } from './utils/operators.js'
@@ -9,8 +9,7 @@ const operations = pipe(
 )
 
 const action = operations(() =>
-    service
-    .sumItems('2143')
+    timeoutPromisse(200, service.sumItems('2143'))
     .then(console.log)
     .catch(console.log)
 );
