@@ -14,3 +14,11 @@ export const pipe = (...fns) => param =>
 
 export const takeUntil = (times, fn) =>
     () => times-- > 0 && fn();
+
+export const debounceTime = (interval, fn) => {
+    let timer = 0;
+    return () => {
+        clearTimeout(timer);
+        timer = setTimeout(fn, interval);
+    }
+}
