@@ -17,3 +17,17 @@ export const timeoutPromisse = (interval, promise) => {
         timer, promise
     ])
 }
+
+export const delay = interval => data =>
+    new Promise((resolve, reject) => setTimeout(() => resolve(data), interval));
+
+export const retry = (retries, interval, fn) =>
+    fn().catch(err => {
+        console.log(retries);
+
+        return delay(interval)().then(() =>
+            retries > 1 ?
+            retry(--retries, interval, fn) :
+            Promise.reject(err))
+
+    });
